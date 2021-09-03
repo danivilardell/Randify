@@ -4,7 +4,7 @@ const tools = require('./scripts/random_playlist')
 const expressLayouts = require('express-ejs-layouts')
 
 const app = express()
-const port = 5000
+const port = process.env.PORT || 5000
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false})
 
