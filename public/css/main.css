@@ -58,13 +58,13 @@ body {
     background: #1DB954;
     border: none;
     border-radius: 4px;
-    width: 300px;
+    width: 250px;
 }
 
 .generate_btn:hover {
     font-size: 33px;
     color: white;
-    width: 330px;
+    width: 280px;
 }
 
 .input_box {
