@@ -2,16 +2,17 @@ const path = require("path");
 const fs = require("fs");
 
 module.exports = {
-    createPlaylist: function (playlistName) {
+    createPlaylist: function (playlistName, numberOfTracks) {
         //Should get token
-        token = "BQAHi8p5XsHe1B45T-bD5YaSOVTshiH9BSND9W9Y5ly1VLoWWJtwtqrWiNwUIx7dvWrUA5Q3J_ujZYptEbHSRs3QxLuUlUmjSO_wlb-IkUt2LKl7KJv3dPQLTi0tabIlkeKI19gbhN8X3xsXqk2dn6DzlhbZLfBxHQsxmtm7v86U02X2lahDbt7am9lSUVqwRbF2dmpCPGWwnnjbqKA2oOSek9sd-gXtHPxUDpqPLmnsICFZ_gJA4LxlGnxqtgIlXuECi_qcIqevVw"
+        token = "BQCOkhQGeFABbJg5UGzSdSj_VkbUY3z-1FbFnH6pQMxg---rAFrKqyfjGy94bkgm99kF37Y8w8POhpUk29XeWgjk-R1G-fTUDqbX9WoHJr7ni-13IYYWIo7J4J3xRi1MHxgLh1i7kv_0_DiTjrdlADO4V7MUJFjLMAHkHiAUhmQdyjOtN7Nav2L34HTkzTfmDOab_9mtofrmLdBI5O9K5FsVlL9UWqPETJquiXV-GL0aL1qpUrvl-vKKlBKt086TOzbglekujsmRpg"
 
         APIController.createPlaylist(token, playlistName).then(function(playlistId) {
-            playlistId = "4zhP7jRX8sTOX3RC7yugJC"
-            APIController.getRandomSongs(token).then(function(random_songs) {
+            APIController.getRandomSongs(token, numberOfTracks).then(function(random_songs) {
+                console.log("hola")
                 fillSongsReply = APIController.addSongs(token, playlistId, random_songs);
             });
         });
+        return true
     },
 };
 
@@ -57,16 +58,15 @@ const APIController = (function() {
 
     }
 
-    const _getRandomSongs = async (token) => {
+    const _getRandomSongs = async (token, numberOfTracks) => {
 
         song_list = []
-        numberOfSongs = 100
-        for(let i = 0; i < numberOfSongs; i++) {
+
+        for(let i = 0; i < numberOfTracks; i++) {
             song = await getRandomSongName()
 
             url = `https://api.spotify.com/v1/search?q=${song}&type=track`
-            //url = `https://api.spotify.com/v1/search?q=Muse&type=track`
-            console.log("Progres: " + (100*i/numberOfSongs).toString() + "%")
+            console.log("Progres: " + (100*i/numberOfTracks).toString() + "%")
             song_id = await getSong(url, token)
             if(song_id != null) {
                 song_list.push(song_id)
@@ -156,8 +156,8 @@ const APIController = (function() {
         addSongs(token, playlistId, randomSongs) {
             return _addSongs(token, playlistId, randomSongs);
         },
-        getRandomSongs(token, playlistId) {
-            return _getRandomSongs(token);
+        getRandomSongs(token, numberOfTracks) {
+            return _getRandomSongs(token, numberOfTracks);
         }
     }
 })();
