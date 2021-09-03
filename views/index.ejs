@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Web API Tutorial</title>
+    <link rel="stylesheet" href="./../public/css/main.css">
+</head>
+<body>
+<div class="container">
+    <form action="" method="POST">
+        <input type="hidden" id='hidden_token'>
+        <center>
+            <h1 class="title">Randomfy</h1>
+            <h2 class="title2" >Random Spotify Playlist Generator</h2>
+
+            <br><br><br>
+
+            <input type="text" name="playlistName" class="input_box" style="text-align: center;" placeholder="Playlist name">
+            <br><br>
+            <a class="normal_text">Tracks: </a>
+            <span id="rangeValue">20</span>
+            <br style="width: 50%" />
+            <Input class="range" type="range" name="" value="20" min=5" max="100" onChange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)">df</Input>
+
+            <script type="text/javascript">
+                function rangeSlide(value) {
+                    document.getElementById('rangeValue').innerHTML = value;
+                }
+            </script>
+            <br><br><br>
+            <button type="submit" class="square_btn" formmethod="post">Generate!</button>
+
+        </center>
+    </form>
+</div>
+</body>
+</html>
