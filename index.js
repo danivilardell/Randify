@@ -34,6 +34,10 @@ app.use(expressLayouts)
 app.set('layout', './layout/full-width')
 app.set('view engine', 'ejs')
 
+app.get('', (req, res) => {
+    res.render('index', { title: 'Randify'})
+})
+
 app.get('/playlist_created', (req, res) => {
     res.render('pages/playlist_created', { title: 'Randify'})
 })
