@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="container">
-    <form action="" method="POST">
+    <form action="/login" method="POST">
         <center>
             <h1 class="title">Randify</h1>
             <h2 class="title2" >Random Spotify Playlist Generator</h2>
@@ -20,10 +20,11 @@
             <a class="normal_text">Tracks: </a>
             <span id="rangeValue">20</span>
             <br style="width: 50%" />
-            <input class="range" name="numberOfTracks" type="range" name="" value="20" min=5" max="50" onChange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)">
+            <input class="range" name="numberOfTracks" type="range" value="15" min=0" max="45" onChange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)">
 
             <script type="text/javascript">
                 function rangeSlide(value) {
+                    value = (parseInt(value) + 5).toString();
                     document.getElementById('rangeValue').innerHTML = value;
                 }
             </script>
