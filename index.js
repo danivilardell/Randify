@@ -102,8 +102,6 @@ app.get('/create_playlist', function(req, res) {
             }
         });
 
-        res.redirect('/playlist_created');
-
     }
 });
 
