@@ -51,9 +51,9 @@ body {
 .title3 {
     font-family: titleFont;
     color: #eeeeee;
-    font-size: 20px;
+    font-size: 2vw;
     height: 40px;
-    width: 1000px;
+    width: 80%;
     text-shadow: 1.5px 1.5px 3px green;
 }
 
@@ -153,6 +153,15 @@ footer {
         font-size: 5vw;
         height: 40px;
         width: 75%;
+        text-shadow: 1.5px 1.5px 3px green;
+    }
+
+    .title3 {
+        font-family: titleFont;
+        color: #eeeeee;
+        font-size: 2vw;
+        height: 40px;
+        width: 80%;
         text-shadow: 1.5px 1.5px 3px green;
     }
 }
