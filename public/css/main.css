@@ -49,6 +49,15 @@ body {
     text-shadow: 1.5px 1.5px 3px green;
 }
 
+.title3 {
+    font-family: titleFont;
+    color: #eeeeee;
+    font-size: 20px;
+    height: 40px;
+    width: 1000px;
+    text-shadow: 1.5px 1.5px 3px green;
+}
+
 .generate_btn {
     font-family: titleFont;
     padding: 0.3em 1em;
@@ -93,7 +102,7 @@ body {
     font-size: 3em;
     color: white;
     font-weight: 400;
-    font-family: playlistNameFont
+    font-family: playlistNameFont;
 }
 .range {
     width: 400px;
