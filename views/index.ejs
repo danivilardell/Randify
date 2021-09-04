@@ -20,10 +20,11 @@
             <a class="normal_text">Tracks: </a>
             <span id="rangeValue">20</span>
             <br style="width: 50%" />
-            <input class="range" name="numberOfTracks" type="range" name="" value="20" min=5" max="50" onChange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)">
+            <input class="range" name="numberOfTracks" type="range" name="" value="15" min=0" max="45" onChange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)">
 
             <script type="text/javascript">
                 function rangeSlide(value) {
+                    value = (parseInt(value) + 5).toString();
                     document.getElementById('rangeValue').innerHTML = value;
                 }
             </script>
