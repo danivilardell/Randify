@@ -20,13 +20,14 @@ app.use(express.static(__dirname + '/public'))
 
 var client_id = '6b4b40e32fe44ea8a52b024888b838dc'; // Your client id
 var client_secret = '718340c1a27848338ace4c8a38e85e72'; // Your secret
-//var redirect_uri = 'http://localhost:5000/create_playlist'; // Your redirect uri
-var redirect_uri = 'https://www.randify.app/create_playlist'; // Your redirect uri
+var redirect_uri = 'http://localhost:5000/create_playlist'; // Your redirect uri
+//var redirect_uri = 'https://www.randify.app/create_playlist'; // Your redirect uri
 
 var stateKey = 'spotify_auth_state';
 
 global.playlistName = ""
 global.numberOfTracks = ""
+global.userId = ""
 
 app.use(express.static('public'))
 
@@ -45,7 +46,6 @@ app.get('/playlist_created', (req, res) => {
 app.listen(port, () => console.info(`App listening on port http://localhost:${port}`))
 
 app.post('/login', urlencodedParser, function(req, res) {
-    console.log("hola1")
     playlistName = req.body["playlistName"]
     numberOfTracks = parseInt(req.body["numberOfTracks"]) + 5
 
@@ -65,7 +65,6 @@ app.post('/login', urlencodedParser, function(req, res) {
 });
 
 app.get('/create_playlist', function(req, res) {
-    console.log("hola2")
     // your application requests refresh and access tokens
     // after checking the state parameter
 
@@ -80,6 +79,7 @@ app.get('/create_playlist', function(req, res) {
             }));
     } else {
         res.clearCookie(stateKey);
+
         var authOptions = {
             url: 'https://accounts.spotify.com/api/token',
             form: {
@@ -93,19 +93,38 @@ app.get('/create_playlist', function(req, res) {
             json: true
         };
 
-        request.post(authOptions, function(error, response, body) {
+        request.post(authOptions, async function(error, response, body) {
             if (!error && response.statusCode === 200) {
 
                 var access_token = body.access_token;
-                tools.createPlaylist(playlistName, numberOfTracks, access_token)
 
+                // use the access token to access the Spotify Web API
+
+                var options = {
+                    url: 'https://api.spotify.com/v1/me',
+                    headers: { 'Authorization': 'Bearer ' + access_token },
+                    json: true
+                };
+
+                userId = await getId(access_token, options)
+                tools.createPlaylist(playlistName, numberOfTracks, access_token, userId)
+                res.redirect('/playlist_created');
             }
         });
 
-        res.redirect('/playlist_created');
+
 
     }
 });
+
+function getId(access_token, options) {
+    return new Promise(function (resolve, reject) {
+        request.get(options, function (error, response, body) {
+            console.log(body.id);
+            resolve(body.id);
+        });
+    });
+}
 
 var generateRandomString = function(length) {
     var text = '';
