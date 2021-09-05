@@ -20,8 +20,8 @@ app.use(express.static(__dirname + '/public'))
 
 var client_id = '6b4b40e32fe44ea8a52b024888b838dc'; // Your client id
 var client_secret = '718340c1a27848338ace4c8a38e85e72'; // Your secret
-var redirect_uri = 'http://localhost:5000/create_playlist'; // Your redirect uri
-//var redirect_uri = 'https://www.randify.app/create_playlist'; // Your redirect uri
+//var redirect_uri = 'http://localhost:5000/create_playlist'; // Your redirect uri
+var redirect_uri = 'https://www.randify.app/create_playlist'; // Your redirect uri
 
 var stateKey = 'spotify_auth_state';
 
