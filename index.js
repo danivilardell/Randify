@@ -106,8 +106,8 @@ app.get('/create_playlist', function(req, res) {
                     json: true
                 };
 
-                userId = await getId(access_token, options)
-                tools.createPlaylist(playlistName, numberOfTracks, access_token, userId)
+                userId = await getId(access_token, options);
+                tools.createPlaylist(playlistName, numberOfTracks, access_token, userId);
                 res.redirect('/playlist_created');
             }
         });

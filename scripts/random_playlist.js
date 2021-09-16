@@ -1,5 +1,6 @@
 const path = require("path");
 const fs = require("fs");
+const {MongoClient} = require('mongodb');
 
 module.exports = {
     createPlaylist: function (playlistName, numberOfTracks, token, userId) {
@@ -9,6 +10,9 @@ module.exports = {
                 fillSongsReply = APIController.addSongs(token, playlistId, random_songs);
             });
         });
+
+
+
         return true
     },
 };
@@ -37,10 +41,15 @@ const APIController = (function() {
         for(let i = 0; i < numberOfTracks; i++) {
             song = await getRandomSongName()
 
-            url = `https://api.spotify.com/v1/search?q=${song}&type=track`
-            console.log("Progres: " + (100*i/numberOfTracks).toString() + "%")
-            song_id = await getSong(url, token)
-            if(song_id != null) {
+            for(var j = 0; j < 4; j++) {
+	            offset = Math.floor(Math.random() * (50 - j*10));
+
+	            url = `https://api.spotify.com/v1/search?q=${song}&type=track&offset=${offset}`
+	            console.log("Progres: " + (100*i/numberOfTracks).toString() + "%")
+	            song_id = await getSong(url, token)
+	            if(song_id != null) break;
+	        }
+	        if(song_id != null) {
                 song_list.push(song_id)
             } else {
                 i = i - 1
@@ -89,7 +98,7 @@ const APIController = (function() {
         });
     }
 
-    function getRandomSongName() {
+    async function getRandomSongName() {
         var path = require('path');
 
         first_letter = "ab"
@@ -100,7 +109,9 @@ const APIController = (function() {
 
         var filePath = path.join(__dirname, '..', 'song_database','songs' + ending + '.txt');
 
-        return readFile(filePath)
+        aux = await readFile(filePath)
+
+        return aux;
     }
 
     function readFile(filePath) {
